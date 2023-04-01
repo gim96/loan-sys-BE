@@ -1,25 +1,23 @@
 module.exports = (sequelize, Sequelize) => {
-    const Unit = sequelize.define("unit", {
-        unit_id: {
+    const cart = sequelize.define("carts", {
+      cart_id: {
           type: Sequelize.INTEGER,
           primaryKey: true,
           autoIncrement: true,
       },
-      zone_id: {
+      user_id: {
         type: Sequelize.INTEGER
       },
-      type: {
-        type: Sequelize.STRING
-      },
-      number_of_units: {
+      product_id: {
         type: Sequelize.INTEGER
       }
-    },{
+    },
+    {
       freezeTableName: true,
       timestamps: true,
       createdAt: true,
       updatedAt: true,
     });
   
-    return Unit;
+    return cart;
   };

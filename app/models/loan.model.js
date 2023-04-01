@@ -1,11 +1,20 @@
 module.exports = (sequelize, Sequelize) => {
-    const Housing_unit = sequelize.define("housing_unit", {
-        housing_unit_id: {
+    const loan = sequelize.define("loans", {
+      loan_id: {
           type: Sequelize.INTEGER,
           primaryKey: true,
           autoIncrement: true,
       },
-      project_id: {
+      loan_amount: {
+        type: Sequelize.STRING
+      },
+      used_amount: {
+        type: Sequelize.STRING
+      },
+      loan_installment_type:{
+        type: Sequelize.STRING
+      },
+      user_id: {
         type: Sequelize.INTEGER
       }
     },
@@ -16,5 +25,5 @@ module.exports = (sequelize, Sequelize) => {
       updatedAt: true,
     });
   
-    return Housing_unit;
+    return loan;
   };

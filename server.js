@@ -1,3 +1,4 @@
+require("dotenv").config();
 const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
@@ -5,7 +6,7 @@ const cors = require("cors");
 const app = express();
 
 var corsOptions = {
-  origin: "http://3.20.92.191"
+  origin: "*"
 };
 app.use(cors(corsOptions));
 app.use(bodyParser.json({limit: '50mb'}));
@@ -17,23 +18,11 @@ app.get("/", (req, res) => {
   res.json({ message: "Application is Running Well" });
 });
 
-require("./app/routes/ameneties.routes")(app);
-require("./app/routes/apartment_unit.routes")(app);
-require("./app/routes/architecture.routes")(app);
-require("./app/routes/faq.routes")(app);
-require("./app/routes/floor.routes")(app);
-require("./app/routes/housing_unit.routes")(app);
-require("./app/routes/job.routes")(app);
-require("./app/routes/location.routes")(app);
-require("./app/routes/project_unit.routes")(app);
-require("./app/routes/project.routes")(app);
-require("./app/routes/property.routes")(app);
-require("./app/routes/seo.routes")(app);
-require("./app/routes/tower.routes")(app);
-require("./app/routes/unit.routes")(app);
-require("./app/routes/zone.routes")(app);
-require("./app/routes/all_resources.routes")(app);
-require("./app/routes/contact.routes")(app);
+require("./app/routes/user.routes")(app);
+require("./app/routes/auth.routes")(app);
+require("./app/routes/loan.routes")(app);
+require("./app/routes/product.routes")(app);
+require("./app/routes/cart.routes")(app);
 
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {

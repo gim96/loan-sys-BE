@@ -1,26 +1,23 @@
 module.exports = (sequelize, Sequelize) => {
-    const contact = sequelize.define("contact", {
-        contact_id: {
+    const user = sequelize.define("users", {
+      user_id: {
           type: Sequelize.INTEGER,
           primaryKey: true,
           autoIncrement: true,
       },
-      name: {
+      username: {
         type: Sequelize.STRING
       },
-      phone: {
+      password: {
         type: Sequelize.STRING
       },
-      email: {
+      dob: {
         type: Sequelize.STRING
       },
-      question: {
+      role: {
         type: Sequelize.STRING
-      },
-      project_name: {
-        type: Sequelize.STRING,
-        default:null
       }
+      
     },
     {
       freezeTableName: true,
@@ -29,5 +26,5 @@ module.exports = (sequelize, Sequelize) => {
       updatedAt: true,
     });
   
-    return contact;
+    return user;
   };

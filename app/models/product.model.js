@@ -1,25 +1,32 @@
 module.exports = (sequelize, Sequelize) => {
-    const zone = sequelize.define("zone", {
-      zone_id: {
+    const product = sequelize.define("products", {
+      product_id: {
           type: Sequelize.INTEGER,
           primaryKey: true,
           autoIncrement: true,
       },
-      project_id: {
+      title: {
+        type: Sequelize.STRING
+      },
+      price: {
         type: Sequelize.INTEGER
       },
-      name: {
+      brand:{
+        type: Sequelize.STRING
+      },
+      category:{
+        type: Sequelize.STRING
+      },
+      thumbnail: {
         type: Sequelize.STRING
       }
-    }
-    ,
+    },
     {
       freezeTableName: true,
       timestamps: true,
       createdAt: true,
       updatedAt: true,
-    }
-    );
+    });
   
-    return zone;
+    return product;
   };
