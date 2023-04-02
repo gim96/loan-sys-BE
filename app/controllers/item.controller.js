@@ -1,39 +1,30 @@
 const db = require("../models");
 const bcrypt = require('bcrypt');
-// Create and Save a new User
+// Create and Save a new item
 exports.create = function (req, res, next) {
 
       try {
 
-        // Create a user
-        const hash = bcrypt.hashSync(req.body.password, 10);
-        // Create a user
-        const user = {
-          username:req.body.username,
-          password:hash,
-          full_name:req.body.full_name,
-          dob:req.body.dob,
-          role:req.body.role
+        
+        // Create a item
+        const item = {
+            product_id:req.body.product_id,
+            order_id:req.body.order_id,
         };
   
-        const result =  db.user.findAll({where : { username:user.username }});
-      
-        // Save user in the database
-        if (result.length > 0) {
-          res.status(401).json({success:false, message: 'This username already exist.!'})
-      } else {
-            // Save User in the database
-          db.user.create(user)
+     
+            // Save item in the database
+          db.item.create(item)
           .then(data => {
               res.send(data);
           })
           .catch(err => {
+              console.log(err)
               res.status(500).send({
               message:
-              err.message || "Some error occurred while creating zone."
+              err.message || "Some error occurred while creating item."
               });
           });
-      }
 
       } catch(err) {
           console.log(err)
@@ -43,7 +34,7 @@ exports.create = function (req, res, next) {
   
 };
 
-// Retrieve all user from the database.
+// Retrieve all item from the database.
 exports.findAll = function (request, res, next) {
     db.job.findAll({attributes: ['user_id','username','password','full_name','dob', 'role']})
     .then(data => {
@@ -57,24 +48,22 @@ exports.findAll = function (request, res, next) {
               });
 };
 
-exports.findAllCustomers = async function (req, res, next) {
-
-  db.sequelize.query(`select 
-  users.user_id, users.username, users.full_name, users.dob, users.role, loans.loan_id, loans.loan_amount, used_amount  
-  from users inner join loans ON users.user_id = loans.user_id AND users.role='customer' `,
-  { type: db.sequelize.QueryTypes.SELECT}
-  ).then(function(data) {
-      res.send(data)
-  })
-  .catch((err) => {
-    console.log(err)
-  })
-
- 
-};
+exports.finditemByCustomerId = function (req, res, next) {
+    const id = req.params.id;
+  
+    db.item.findAll({where: {user_id:id}})
+      .then(data => {
+        res.send(data[0]);
+      })
+      .catch(err => {
+        res.status(500).send({
+          message: "Error retrieving item with id=" + id
+        });
+      });
+  };
 
 
-// Find a single user with an id
+// Find a single item with an id
 exports.findOne = function (req, res, next) {
     const id = req.params.id;
   
@@ -84,12 +73,12 @@ exports.findOne = function (req, res, next) {
       })
       .catch(err => {
         res.status(500).send({
-          message: "Error retrieving job with id=" + id
+          message: "Error retrieving item with id=" + id
         });
       });
   };
 
-// Update a user by the id in the request
+// Update a item by the id in the request
 exports.update = function (req, res, next) {
     const id = req.params.id;
   
@@ -98,19 +87,19 @@ exports.update = function (req, res, next) {
     })
       .then(
           res.send({
-            message: "user was updated successfully."
+            message: "item was updated successfully."
           })
       )
       .catch(err => {
         res.status(500).send({
-          message: "Error updating user with id=" + id
+          message: "Error updating item with id=" + id
         });
       });
   };
   
 // };
 
-// // Delete a user with the specified id in the request
+// // Delete a item with the specified id in the request
 exports.delete = function (req, res, next) {
     const id = req.params.id;
   
@@ -120,17 +109,17 @@ exports.delete = function (req, res, next) {
       .then(num => {
         if (num == 1) {
           res.send({
-            message: "user was deleted successfully!"
+            message: "item was deleted successfully!"
           });
         } else {
           res.send({
-            message: `Cannot delete user with id=${id}. Maybe user was not found!`
+            message: `Cannot delete item with id=${id}. Maybe item was not found!`
           });
         }
       })
       .catch(err => {
         res.status(500).send({
-          message: "Could not delete user with id=" + id
+          message: "Could not delete item with id=" + id
         });
       });
   };

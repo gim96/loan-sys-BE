@@ -23,6 +23,8 @@ require("./app/routes/auth.routes")(app);
 require("./app/routes/loan.routes")(app);
 require("./app/routes/product.routes")(app);
 require("./app/routes/cart.routes")(app);
+require("./app/routes/order.routes")(app);
+require("./app/routes/item.routes")(app);
 
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
