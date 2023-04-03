@@ -106,8 +106,8 @@ exports.update = function (req, res, next) {
 exports.delete = function (req, res, next) {
     const id = req.params.id;
   
-    db.job.destroy({
-      where: { job_id: id }
+    db.product.destroy({
+      where: { product_id: id }
     })
       .then(num => {
         if (num == 1) {
