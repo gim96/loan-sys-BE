@@ -15,6 +15,10 @@ module.exports = app => {
       router.get("/", order.findAll);
       router.get("/get-orders-data/:id", order.findOrderDataByUserId);
 
+      router.get("/get-orders-data-with-user-data", order.findOrdersWithCustomerData);
+
+      router.get("/get-orders-data-with-items", order.findOrdersWithItems);
+
     //   router.get("/get-product-by-userId/:id", product.findproductByCustomerId);
     
       // Retrieve a single product with id
@@ -24,7 +28,7 @@ module.exports = app => {
       router.put("/:id" ,order.update);
     
       // Delete a product with id
-      router.delete("/:id" ,order.delete);
+      // router.delete("/:id" ,order.delete);
     
       app.use('/api/orders', router);
 };

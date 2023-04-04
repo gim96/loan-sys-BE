@@ -129,27 +129,8 @@ exports.findOne = function (req, res, next) {
       });
   };
 
-// Update a cart by the id in the request
-exports.update = function (req, res, next) {
-    const id = req.params.id;
-  
-    db.job.update(req.body, {
-      where: { job_id: id }
-    })
-      .then(
-          res.send({
-            message: "cart was updated successfully."
-          })
-      )
-      .catch(err => {
-        res.status(500).send({
-          message: "Error updating cart with id=" + id
-        });
-      });
-  };
-  
-// };
 
+  
 // // Delete a cart with the specified id in the request
 exports.delete = function (req, res, next) {
     const id = req.params.id;

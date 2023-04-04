@@ -38,7 +38,7 @@ exports.create = function (req, res, next) {
 
 // Retrieve all loan from the database.
 exports.findAll = function (request, res, next) {
-    db.job.findAll({attributes: ['user_id','username','password','full_name','dob', 'role']})
+    db.loan.findAll({attributes: ['loan_id', 'loan_amount','used_amount','loan_installment_type','user_id']})
     .then(data => {
                 res.send(data);
               })
@@ -80,48 +80,6 @@ exports.findOne = function (req, res, next) {
       });
   };
 
-// Update a loan by the id in the request
-exports.update = function (req, res, next) {
-    const id = req.params.id;
-  
-    db.job.update(req.body, {
-      where: { job_id: id }
-    })
-      .then(
-          res.send({
-            message: "loan was updated successfully."
-          })
-      )
-      .catch(err => {
-        res.status(500).send({
-          message: "Error updating loan with id=" + id
-        });
-      });
-  };
-  
-// };
 
-// // Delete a loan with the specified id in the request
-exports.delete = function (req, res, next) {
-    const id = req.params.id;
-  
-    db.job.destroy({
-      where: { job_id: id }
-    })
-      .then(num => {
-        if (num == 1) {
-          res.send({
-            message: "loan was deleted successfully!"
-          });
-        } else {
-          res.send({
-            message: `Cannot delete loan with id=${id}. Maybe loan was not found!`
-          });
-        }
-      })
-      .catch(err => {
-        res.status(500).send({
-          message: "Could not delete loan with id=" + id
-        });
-      });
-  };
+
+

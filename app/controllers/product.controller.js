@@ -84,9 +84,9 @@ exports.findOne = function (req, res, next) {
 // Update a product by the id in the request
 exports.update = function (req, res, next) {
     const id = req.params.id;
-  
-    db.job.update(req.body, {
-      where: { job_id: id }
+    console.log(req.body)
+    db.product.update(req.body, {
+      where: { product_id: id }
     })
       .then(
           res.send({

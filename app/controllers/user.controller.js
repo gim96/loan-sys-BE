@@ -78,7 +78,7 @@ exports.findAllCustomers = async function (req, res, next) {
 exports.findOne = function (req, res, next) {
     const id = req.params.id;
   
-    db.job.findByPk(id)
+    db.user.findByPk(id)
       .then(data => {
         res.send(data);
       })

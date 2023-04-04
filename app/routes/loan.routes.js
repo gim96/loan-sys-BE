@@ -16,10 +16,12 @@ module.exports = app => {
       router.get("/:id", loan.findOne);
     
       // // Update a loan with id
-      router.put("/:id" ,loan.update);
+      // router.put("/:id" ,loan.update);
+
+      // router.patch("/:id" ,loan.update);
     
       // Delete a loan with id
-      router.delete("/:id" ,loan.delete);
+      // router.delete("/:id" ,loan.delete);
     
       app.use('/api/loans', router);
 };

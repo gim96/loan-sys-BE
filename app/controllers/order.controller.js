@@ -96,8 +96,6 @@ exports.createWithItems = function (req, res, next) {
     }
 };
 
-
-
 // Retrieve all order from the database.
 exports.findAll = function (request, res, next) {
     db.order.findAll({attributes: ['order_id','user_id','status',]})
@@ -150,6 +148,32 @@ exports.findOrderDataByUserId =async function (req, res, next) {
 
 };
 
+exports.findOrdersWithCustomerData = async function(req, res, next) {
+  db.sequelize.query(`select orders.*, users.username
+  from orders inner join users ON orders.user_id = users.user_id`,
+  {type: db.sequelize.QueryTypes.SELECT}
+  ).then(async function(data) {
+    res.send(data)
+  })
+  .catch((err) => {
+    console.log(err)
+  })
+} 
+
+exports.findOrdersWithItems = async function(req, res, next) {
+ await db.sequelize.query(`select orders.*, items.item_id, items.product_id
+  from orders inner join items ON orders.order_id = items.order_id`,
+  {type: db.sequelize.QueryTypes.SELECT}
+  ).then(async function(data) {
+
+    res.send(data)
+  })
+  .catch((err) => {
+    console.log(err)
+  })
+} 
+
+
 exports.findorderByCustomerId = function (req, res, next) {
     const id = req.params.id;
   
@@ -200,28 +224,3 @@ exports.update = function (req, res, next) {
   };
   
 // };
-
-// // Delete a order with the specified id in the request
-exports.delete = function (req, res, next) {
-    const id = req.params.id;
-  
-    db.job.destroy({
-      where: { job_id: id }
-    })
-      .then(num => {
-        if (num == 1) {
-          res.send({
-            message: "order was deleted successfully!"
-          });
-        } else {
-          res.send({
-            message: `Cannot delete order with id=${id}. Maybe order was not found!`
-          });
-        }
-      })
-      .catch(err => {
-        res.status(500).send({
-          message: "Could not delete order with id=" + id
-        });
-      });
-  };

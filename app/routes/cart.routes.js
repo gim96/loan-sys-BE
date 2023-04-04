@@ -16,7 +16,7 @@ module.exports = app => {
       router.get("/:id", cart.findOne);
     
       // // Update a cart with id
-      router.put("/:id" ,cart.update);
+      // router.put("/:id" ,cart.update);
     
       // Delete a cart with id
       router.delete("/:id" ,cart.delete);
